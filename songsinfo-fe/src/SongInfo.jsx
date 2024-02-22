@@ -21,7 +21,8 @@ function Songs () {
 
       axios.get(API_URL+'/songsByTitle')
       .then(result=> {
-       setSongsByTitle(result.data)})
+       setSongsByTitle(result.data)
+    })
       .catch(err => console.log(err))
 
       axios.get(API_URL+'/songsByArtist')
@@ -52,14 +53,14 @@ function Songs () {
     return (
         <div className="d-flex vh-100 bg-secondary justify-content-center align-items-center">
             <div className="w-350 bg-white rounded p-5">
-                <Link to="/create" className="btn btn-success" style={{width: "150px" , marginRight: "350px"}}>Add +</Link>
+                <Link to="/create" className="btn btn-success" style={{width: "150px" , marginRight: "850px"}}>Add +</Link>
                <table className="table">
                 <thead>
                     <tr>
-                        <th>Title <br></br>#{songsByTitle} </th>
-                        <th>Artist <br></br>#{songsByArtist}</th>
-                        <th>Album <br></br>#{songsByAlbum}</th>  
-                        <th>Genre <br></br>#{songsByGenere}</th>
+                        <th>Total # of Songs ({songsByTitle}) </th>
+                        <th>Total # of Artists ({songsByArtist})</th>
+                        <th>Total # of Album ({songsByAlbum})</th>  
+                        <th>Total # of Gener({songsByGenere})</th>
                         <th>Action </th>
                     </tr>
                 </thead>

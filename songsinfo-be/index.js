@@ -59,34 +59,54 @@ app.delete('/deleteSong/:id', (req, res) => {
    
   });
 
-    // Get songs by album
+    //Get songs by Title
     app.get('/songsByTitle', async (req, res) => {
-        const titles = await SongsModel.find().populate('title'); 
-        const songsByTitle = titles.map((title) => ({
-         songCount: title.title.length
+        const title = await SongsModel.find().populate('title');
+        
+        const songsByTitle = title.map((title) => ({
+        songCount: title.title
         }));
-        res.json(songsByTitle.length);
-       
+        var rowCount = 0;
+        const value = songsByTitle.map((song) => {
+            if(song.songCount)
+            {
+                rowCount++
+            }})
+
+        res.json(rowCount)
+
       });
 
     // Get songs by album
     app.get('/songsByArtist', async (req, res) => {
         const artists = await SongsModel.find().populate('artist'); 
         const songsByArtist = artists.map((artist) => ({
-         songCount: artist.artist.length
+         artistCount: artist.artist.length
         }));
-        res.json(songsByArtist.length);
-       
+        var rowCount = 0;
+        const Value = songsByArtist.map((song) => {
+            if(song.artistCount)
+            {
+                rowCount++
+            }})
+
+        res.json(rowCount)
       });
 
       app.get('/songsByGenere', async (req, res) => {
         const gener = await SongsModel.find().populate('gener');
         
         const songsByGenere = gener.map((genere) => ({
-         songCount: genere.gener
+         genereCount: genere.gener
         }));
-        console.log("ABCD" , songsByGenere)
-        res.json(songsByGenere.length);
+        var rowCount = 0;
+        const Value = songsByGenere.map((song) => {
+            if(song.genereCount)
+            {
+                rowCount++
+            }})
+
+        res.json(rowCount)
        
       });
 
