@@ -9,11 +9,11 @@ function Songs () {
     const [songsByTitle, setSongsByTitle] = useState([]);
     const [songsByArtist, setSongsByArtist] = useState([]);
     const [songsByGenere, setSongsByGenere] = useState([]);
-
+    const [value, setValue] = useState('');
+    const [searchByGenere, setSearchByGenere] = useState('');
 
     var API_URL = "http://localhost:3001"
     useEffect(() => {
-      //const songsByAlbumResponse =  fetch(API_URL+'/songsByAlbum');
       axios.get(API_URL+'/songsByAlbum')
       .then(result=> {
       setSongsByAlbum(result.data)})
@@ -50,14 +50,27 @@ function Songs () {
     })
     .catch(err => console.log(err))
   }
+  const onChange = (event) =>{
+    setValue(event.target.value)
+  }
+  const onSearch = (searchTerm) =>{
+    console.log('search', searchTerm)
+    axios.get(API_URL+'/getSongsGenere/'+searchTerm)
+    .then(result=> {
+        setValue(result.data)})
+       .catch(err => console.log(err))
+  }
     return (
         <div className="d-flex vh-100 bg-secondary justify-content-center align-items-center">
             <div className="w-350 bg-white rounded p-5">
+                
                 <Link to="/create" className="btn btn-success" style={{width: "150px" , marginRight: "850px"}}>Add +</Link>
+                <input type="text" value={value} onChange={onChange}/>
+                <button onClick={()=> onSearch(value)} >Search</button>
                <table className="table">
                 <thead>
                     <tr>
-                        <th>Total # of Songs ({songsByTitle}) </th>
+                        <th>Total # of Songs ({songsByTitle})</th>
                         <th>Total # of Artists ({songsByArtist})</th>
                         <th>Total # of Album ({songsByAlbum})</th>  
                         <th>Total # of Gener({songsByGenere})</th>

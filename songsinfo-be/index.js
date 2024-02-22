@@ -2,7 +2,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const SongsModel = require('./models/songsInfo')
-const ObjectId = mongoose.Types.ObjectId;
 
 const app = express()
 app.use(cors())
@@ -30,6 +29,13 @@ app.get('/', (req, res) => {
     .catch(err => res.json(err))
 })
 
+app.get('/getSongsGenere/:gener', (req, res) => {
+    const gener = req.params.gener;
+    SongsModel.findOne({gener})
+    .then(song =>res.json(song))
+    .catch(err => res.json(err))
+})
+
 app.put('/updateSongs/:id', (req, res) => {
     const id = req.params.id;
     SongsModel.findByIdAndUpdate({_id:id}, {
@@ -40,6 +46,7 @@ app.put('/updateSongs/:id', (req, res) => {
     .then(song =>res.json(song)) 
     .catch(err => res.json(err))
 })
+
 
 
 app.delete('/deleteSong/:id', (req, res) => {
@@ -55,7 +62,14 @@ app.delete('/deleteSong/:id', (req, res) => {
     const songsByAlbum = albums.map((album) => ({
      songCount: album.album.length
     }));
-    res.json(songsByAlbum.length);
+    var rowCount = 0;
+    const value = songsByAlbum.map((song) => {
+        if(song.songCount)
+        {
+            rowCount++
+        }})
+
+    res.json(rowCount)
    
   });
 
