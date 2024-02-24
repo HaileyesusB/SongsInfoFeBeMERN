@@ -65,6 +65,7 @@ function UpdateSong () {
                 </div>
 
                 <button className="btn btn-success">Update</button>
+                <button className="btn btn-light" onClick={'/'}>Cancel</button>
             </form>
 
         </div>

@@ -29,13 +29,6 @@ app.get('/', (req, res) => {
     .catch(err => res.json(err))
 })
 
-app.get('/getSongsGenere/:gener', (req, res) => {
-    const gener = req.params.gener;
-    SongsModel.findOne({gener})
-    .then(song =>res.json(song))
-    .catch(err => res.json(err))
-})
-
 app.put('/updateSongs/:id', (req, res) => {
     const id = req.params.id;
     SongsModel.findByIdAndUpdate({_id:id}, {
@@ -60,7 +53,7 @@ app.delete('/deleteSong/:id', (req, res) => {
   app.get('/songsByAlbum', async (req, res) => {
     const albums = await SongsModel.find().populate('album'); 
     const songsByAlbum = albums.map((album) => ({
-     songCount: album.album.length
+     songCount: album.album
     }));
     var rowCount = 0;
     const value = songsByAlbum.map((song) => {
@@ -95,7 +88,7 @@ app.delete('/deleteSong/:id', (req, res) => {
     app.get('/songsByArtist', async (req, res) => {
         const artists = await SongsModel.find().populate('artist'); 
         const songsByArtist = artists.map((artist) => ({
-         artistCount: artist.artist.length
+         artistCount: artist.artist
         }));
         var rowCount = 0;
         const Value = songsByArtist.map((song) => {

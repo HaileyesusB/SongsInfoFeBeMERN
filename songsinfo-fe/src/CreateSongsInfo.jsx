@@ -51,6 +51,7 @@ function CreateSongs () {
                     </div>
 
                     <button className="btn btn-success">Submit</button>
+                    <button className="btn btn-light" onClick={'/'}>Cancel</button>
                 </form>
 
             </div>
